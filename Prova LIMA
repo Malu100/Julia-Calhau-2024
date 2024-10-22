@@ -20,7 +20,7 @@ HTML
             </ul>
         </nav>
     </header>
-    
+
     <main>
         <section id="sinopse">
             <h1>Capitão América: Guerra Civil</h1>
@@ -37,53 +37,53 @@ HTML
             <div class="cards">
                 <div class="card">
                     <img src="robert_downey_jr.jpg" alt="">
-                    <h3>Tony Stark</h3>
+                    <h3>Robert Downey Jr.</h3>
                     <p>Tony Stark, interpretado por Robert Downey Jr. no MCU, é um bilionário e gênio inventor que se torna o super-herói Homem de Ferro. Após ser sequestrado, ele cria uma armadura para escapar e decide usar sua tecnologia para proteger o mundo. Conhecido por seu humor afiado e egoísmo, Stark evolui ao longo da saga, enfrentando desafios pessoais e se tornando um líder dos Vingadores.</p>
                 </div>
                 <div class="card">
                     <img src="_Black Widow_ Gets The Female Director It Deserves.jfif" alt="">
-                    <h3>Natasha Romanoff</h3>
+                    <h3>Scarlett Johansson</h3>
                     <p>Viúva Negra, interpretada por Scarlett Johansson no MCU, é Natasha Romanoff, uma ex-espiã russa e membro dos Vingadores. Ela é altamente habilidosa em combate e espionagem, compensando a falta de superpoderes com inteligência e tecnologia.</p>
                 </div>
                 <div class="card">
                     <img src="pantera negra.jfif" alt="">
-                    <h3>T'Challa</h3>
+                    <h3>Chadwick Boseman</h3>
                     <p>Pantera Negra, interpretada por Chadwick Boseman, é T'Challa, rei de Wakanda e herói que possui habilidades especiais e um traje de vibranium. Nobre e protetor, ele equilibra suas responsabilidades como líder de Wakanda e defensor global, desempenhando papéis importantes em "Pantera Negra".</p>
                 </div>
                 
                 <div class="card">
                     <img src="Civil War.jfif" alt="">
-                    <h3>James Rhodes</h3>
+                    <h3>Don Cheadle</h3>
                     <p>Máquina de Combate, interpretado por Don Cheadle no MCU, é James "Rhodey" Rhodes, um coronel da Força Aérea e amigo de Tony Stark. Usando uma armadura poderosa e armada, ele apoia os Vingadores em várias missões, sendo conhecido por sua lealdade, coragem e compromisso com a justiça.</p>
                 </div>
                 <div class="card">
                     <img src="vision.jfif" alt="">
-                    <h3>Visão</h3>
+                    <h3>Paul Bettany</h3>
                     <p>Visão, interpretado por Paul Bettany no MCU, é um androide poderoso criado com a Joia da Mente e o corpo de vibranium. Com habilidades como superforça, voo e intangibilidade, ele busca sempre o bem maior. Visão forma uma conexão com Wanda Maximoff e tem um papel importante nos filmes dos Vingadores.</p>
                 </div>
                 <div class="card">
                     <img src="steve rogers.webp" alt="">
-                    <h3>Steve Rogers</h3>
+                    <h3>Chris Evans</h3>
                     <p>Capitão América, interpretado por Chris Evans no MCU, é Steve Rogers, um soldado da Segunda Guerra Mundial que se torna um super-soldado. Usando um escudo indestrutível, ele simboliza justiça e liberdade, liderando os Vingadores em várias batalhas. É conhecido por sua bravura, ética e compromisso com o bem.</p>
                 </div>
                 <div class="card">
                     <img src="bucky barnes.jfif" alt="">
-                    <h3>Bucky Barnes</h3>
+                    <h3>Sebastian Stan</h3>
                     <p>Soldado Invernal, interpretado por Sebastian Stan no MCU, é James Buchanan Barnes, amigo de infância de Steve Rogers que se torna um assassino após lavagem cerebral. Com habilidades em combate e um braço biônico, ele busca redenção ao longo da franquia, aparecendo em "Capitão América: O Soldado Invernal" e "Guerra Civil".</p>
                 </div>
                 <div class="card">
                     <img src="Scarlet Witch.jfif" alt="">
-                    <h3>Wanda Maximoff</h3>
+                    <h3>Elizabeth Olsen</h3>
                     <p>Feiticeira Escarlate, interpretada por Elizabeth Olsen no MCU, é Wanda Maximoff, uma poderosa usuária de magia e telecinesia. Introduzida em "Vingadores: Era de Ultron", ela se torna uma heroína e membro dos Vingadores. Sua história aborda temas de amor, perda e dor, especialmente em relação ao seu irmão gêmeo, Pietro, e seu relacionamento com Visão.</p>
                 </div>
                 <div class="card">
                     <img src="Clint Barton.jfif" alt="">
-                    <h3>Clint Barton</h3>
+                    <h3>Jeremy Renner</h3>
                     <p>Gavião Arqueiro, interpretado por Jeremy Renner no MCU, é Clint Barton, ex-agente da S.H.I.E.L.D. e membro dos Vingadores. Especializado em arqueria, ele é conhecido por sua precisão e uso de flechas especiais. Sem superpoderes, é um estrategista leal e um pai dedicado.</p>
                 </div>
                 <div class="card">
                     <img src="download.jfif" alt="">
-                    <h3>Sam Wilson</h3>
+                    <h3>Anthony Mackie</h3>
                     <p>Falcão, interpretado por Anthony Mackie no MCU, é Sam Wilson, um veterano da Força Aérea dos EUA e parceiro de Capitão América. Com um traje que permite voar, ele é leal e habilidoso em combate. Após a aposentadoria de Steve Rogers, Sam assume o manto do Capitão América, aparecendo em "Capitão América: O Soldado Invernal" e "Guerra Civil".</p>
                 </div>
                
@@ -94,7 +94,7 @@ HTML
 
         <section id="curiosidade">
             <h2>Curiosidade</h2>
-            <p>o filme marca a introdução do **Homem-Aranha** no MCU. Antes disso, os direitos do personagem estavam com a Sony, mas graças a um acordo entre a Sony e a Marvel Studios, o Homem-Aranha, interpretado por Tom Holland, pôde aparecer no filme. Sua estreia, mesmo em uma participação relativamente pequena, foi muito aguardada pelos fãs, e ele rapidamente se tornou um dos destaques do filme. A aparição do herói também pavimentou o caminho para o lançamento de seus próprios filmes solo dentro do MCU.</p>
+            <h3>o filme marca a introdução do **Homem-Aranha** no MCU. Antes disso, os direitos do personagem estavam com a Sony, mas graças a um acordo entre a Sony e a Marvel Studios, o Homem-Aranha, interpretado por Tom Holland, pôde aparecer no filme. Sua estreia, mesmo em uma participação relativamente pequena, foi muito aguardada pelos fãs, e ele rapidamente se tornou um dos destaques do filme. A aparição do herói também pavimentou o caminho para o lançamento de seus próprios filmes solo dentro do MCU.</h3>
         </section>
 
         <section id="contato">
