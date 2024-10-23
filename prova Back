@@ -1,0 +1,402 @@
+Serever.js
+
+const express = require("express");
+const mysql = require("mysql");
+const cors = require("cors");
+
+// Configuração da conexão com o banco de dados
+const con = mysql.createConnection({
+    user: 'root',
+    host: 'localhost',
+    database: 'Hoteis',
+});
+
+con.connect((err) => {
+    if (err) {
+        console.error('Erro ao conectar ao banco de dados:', err);
+        return;
+    }
+    console.log('Conectado ao banco de dados.');
+});
+
+// Inicializando o aplicativo Express
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+// Rota de teste
+app.get("/", (req, res) => {
+    res.send("Back-end respondendo");
+});
+
+// CRUD - Criar Cliente
+app.post("/clientes", (req, res) => {
+    const { nome, Quartos, telefone, reservas, estacionamento } = req.body;
+    const query = 'INSERT INTO Clientes (Nome, Quartos, Telefone, Reservas, Estacionamento) VALUES (?, ?, ?, ?, ?)';
+    con.query(query, [nome, Quartos, telefone, reservas, estacionamento], (err, resultado) => {
+        if (err) {
+            res.status(500).json({ erro: err.message });
+        } else {
+            res.status(201).json({ mensagem: 'Cliente criado com sucesso', resultado });
+        }
+    });
+});
+
+// CRUD - Leitura de Clientes
+app.get("/clientes", (req, res) => {
+    con.query("SELECT * FROM Clientes", (err, resultado) => {
+        if (err) {
+            res.status(500).json({ erro: err.message });
+        } else {
+            res.json(resultado);
+        }
+    });
+});
+
+// CRUD - Atualização de Cliente
+app.put("/clientes", (req, res) => {
+    const { id, nome, quartos, telefone, reservas, estacionamento } = req.body;
+    const query = 'UPDATE Clientes SET Nome = ?, Quartos = ?, Telefone = ?, Reservas = ?, Estacionamento = ? WHERE ClienteID = ?';
+    con.query(query, [nome, quartos, telefone, reservas, estacionamento, id], (err, resultado) => {
+        if (err) {
+            res.status(500).json({ erro: err.message });
+        } else {
+            res.json({ mensagem: 'Cliente atualizado com sucesso', resultado });
+        }
+    });
+});
+
+// CRUD - Excluir Cliente
+app.delete("/clientes/:id", (req, res) => {
+    const { id } = req.params;
+    const query = 'DELETE FROM Clientes WHERE ClienteID = ?';
+    con.query(query, [id], (err, resultado) => {
+        if (err) {
+            res.status(500).json({ erro: err.message });
+        } else {
+            res.json({ mensagem: 'Cliente removido com sucesso', resultado });
+        }
+    });
+});
+
+// Iniciando o servidor na porta 3000
+app.listen(3000, () => {
+    console.log("Servidor rodando na porta 3000");
+});
+
+
+routes.js
+
+const express = require('express');
+const router = express.Router();
+
+const clientes = require('./controllers/controllerClientes');
+const telefone = require('./controllers/controllerTelefone');
+const quartos = require('./controllers/controllerQuartos');
+const reservas = require('./controllers/controllerReservas');
+const estacionamento = require('./controllers/controllerEstacionamento');
+
+const teste = (req, res) => {
+    res.json("API funcionando com sucesso");
+}
+
+router.post('/', teste);
+router.post('/clientes', clientes.create);
+router.get('/clientes', clientes.read);
+router.delete('/clientes', clientes.deletar);
+
+router.post('/telefone', telefone.create);
+router.get('/telefone', telefone.read);
+router.delete('/telefone', telefone.deletar);
+
+
+router.post('/quartos', quartos.create);
+router.get('/quartos', quartos.read);
+router.delete('/quartos', quartos.deletar);
+
+router.post('/reservas', reservas.create);
+router.get('/reservas', reservas.read);
+router.delete('/reservas', reservas.deletar);
+
+router.post('/estacionamento', estacionamento.create);
+router.get('/estacionamento', estacionamento.read);
+router.delete('/estacionamento', estacionamento.deletar);
+
+module.exports = router;
+
+
+clientes.js
+
+const express = require('express');
+const router = express.Router();
+const db = require('./db'); 
+
+router.post('/', async (req, res) => {
+    try {
+        const { nome, email, telefones } = req.body;
+        const cliente = await db.Cliente.create({ nome, email });
+
+        if (telefones && telefones.length > 0) {
+            const telefonesPromises = telefones.map(tel => 
+                db.Telefone.create({ numero: tel.numero, clienteId: cliente.id })
+            );
+            await Promise.all(telefonesPromises);
+        }
+
+        res.status(201).json(cliente);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar cliente' });
+    }
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const clientes = await db.Cliente.findAll({ include: db.Telefone });
+        res.status(200).json(clientes);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar clientes' });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nome, email, telefones } = req.body;
+
+        await db.Cliente.update({ nome, email }, { where: { id } });
+
+        if (telefones) {
+            await db.Telefone.destroy({ where: { clienteId: id } }); 
+            const telefonesPromises = telefones.map(tel => 
+                db.Telefone.create({ numero: tel.numero, clienteId: id })
+            );
+            await Promise.all(telefonesPromises);
+        }
+
+        res.status(200).json({ message: 'Cliente atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar cliente' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await db.Cliente.destroy({ where: { id } });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao deletar cliente' });
+    }
+});
+
+module.exports = router;
+
+
+quartos.js
+
+const express = require('express');
+const router = express.Router();
+const db = require('./db'); 
+
+router.post('/', async (req, res) => {
+    try {
+        const { numero, tipo, preco, disponibilidade } = req.body;
+        const quarto = await db.quarto.create({ numero, tipo, preco, disponibilidade });
+        res.status(201).json(quarto);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar quarto' });
+    }
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const quartos = await db.quarto.findAll();
+        res.status(200).json(quartos);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar quartos' });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { numero, tipo, preco, disponibilidade } = req.body;
+
+        await db.Quarto.update({ numero, tipo, preco, disponibilidade }, { where: { id } });
+        res.status(200).json({ message: 'Quarto atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar quarto' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await db.quarto.destroy({ where: { id } });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao deletar quarto' });
+    }
+});
+
+module.exports = router;
+
+
+telefone.js
+
+const express = require('express');
+const router = express.Router();
+const db = require('./db'); 
+
+router.post('/', async (req, res) => {
+    try {
+        const { numero, clienteId } = req.body;
+        const telefone = await db.Telefone.create({ numero, clienteId });
+        res.status(201).json(telefone);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar telefone' });
+    }
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const telefones = await db.Telefone.findAll();
+        res.status(200).json(telefones);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar telefones' });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { numero } = req.body;
+
+        await db.Telefone.update({ numero }, { where: { id } });
+        res.status(200).json({ message: 'Telefone atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar telefone' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await db.Telefone.destroy({ where: { id } });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao deletar telefone' });
+    }
+});
+
+module.exports = router;
+
+
+estacionamento.js
+
+const express = require('express');
+const router = express.Router();
+const db = require('./db'); 
+
+router.post('/', async (req, res) => {
+    try {
+        const { clienteId, dataEntrada, dataSaida, vaga } = req.body;
+        const estacionamento = await db.Estacionamento.create({ clienteId, dataEntrada, dataSaida, vaga });
+        res.status(201).json(estacionamento);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar estacionamento' });
+    }
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const estacionamentos = await db.Estacionamento.findAll({
+            include: [{ model: db.Cliente }] 
+        });
+        res.status(200).json(estacionamentos);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar estacionamentos' });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { clienteId, dataEntrada, dataSaida, vaga } = req.body;
+
+        await db.Estacionamento.update({ clienteId, dataEntrada, dataSaida, vaga }, { where: { id } });
+        res.status(200).json({ message: 'Estacionamento atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar estacionamento' });
+    }
+});
+
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await db.Estacionamento.destroy({ where: { id } });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao deletar estacionamento' });
+    }
+});
+
+module.exports = router;
+
+
+
+reservs.js
+
+const express = require('express');
+const router = express.Router();
+const db = require('./db'); 
+
+router.post('/', async (req, res) => {
+    try {
+        const { clienteId, quartoId, dataInicio, dataFim } = req.body;
+        const reserva = await db.Reserva.create({ clienteId, quartoId, dataInicio, dataFim });
+        res.status(201).json(reserva);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar reserva' });
+    }
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const reservas = await db.Reserva.findAll({
+            include: [
+                { model: db.Cliente }, 
+                { model: db.Quarto }
+            ]
+        });
+        res.status(200).json(reservas);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar reservas' });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { clienteId, quartoId, dataInicio, dataFim } = req.body;
+
+        await db.Reserva.update({ clienteId, quartoId, dataInicio, dataFim }, { where: { id } });
+        res.status(200).json({ message: 'Reserva atualizada com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar reserva' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await db.Reserva.destroy({ where: { id } });
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao deletar reserva' });
+    }
+});
+
+module.exports = router;
+
