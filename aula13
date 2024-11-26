@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>aula13</title>
+</head>
+
+<body>
+    
+<header>
+    <div class="container">
+        <h1>consumindo a API via cep</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container2">
+        <h1>API para o cep</h1>
+        <input type="number" id="cep" placeholder="digite o seu cep: " required>
+        <button onclick="consultarendereco()">consultar</button>
+        <div id="resultado">
+            <h1>aguardando o resultado</h1>
+        </div>
+    </div>
+</main>
+
+</body>
+<script src="script.js"></script>
+
+</html>
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: rgb(255, 0, 0);
+}
+
+header{
+    background: black;
+    padding: 1vw;
+
+    &.container h1{
+        color: white;
+        font-size: 2vw;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+}
+
+main{
+
+width: 100vw;
+display: flex;
+align-items: center;
+justify-content: center;
+
+& .container2{
+    padding: 5vw;
+    border: 1px solid rgb(121, 117, 117);
+    width: 11vw;
+    margin-top: 5vw;
+    border-radius: 0.5vw;
+    box-shadow: 1px 1px 1px 1px black;
+
+    & h1{
+    font-size: 1.5vw;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+    & input{
+        width: 10vw;
+        padding: 0.5vw;
+        border-radius: 0.5vw;
+        border: none;
+        margin-top: 1vw;
+    }
+
+& button{
+    width: 11vw;
+    padding: 0.5vw;
+    margin-top: 1vw;
+    background: greenyellow;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.0vw;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+& button:hover{
+    width: 11vw;
+    padding: 0.5vw;
+    margin-top: 1vw;
+    background: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.0vw;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+
+}
+
+}
+
+#resultado h1{
+
+    font-size: 1vw;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 1vw;
+    
+    }
+
+
+
+function consultarendereco(){
+    let cep = document.getElementById('cep').value;
+    let url = "https://viacep.com.br/ws/" + cep + "/json/";
+
+    if(cep.length !== 8){
+        alert("cep invalido!!");
+        return;
+    }
+
+fetch (url). then(function (response){
+    response.json().then(mostrardados)
+})
+
+}
+
+function mostrardados(dados){
+    let resultado = document.querySelector('#resultado');
+    if(dados.erro){
+        resultado.innerHTML = `Não foi possivel localizar o endereço`
+    } else {
+        resultado.innerHTML = `
+        <p>enderço: ${dados.localidade}<p>
+        <p>logradouro: ${dados.logradouro}<p>
+        <p>complemento: ${dados.complemento}<p>
+        <p>estado: ${dados.estado}<p>
+        <p>região: ${dados.região}<p>
+        <p>DDD: ${dados.DDD}<p>
+        `
+    }
+}
