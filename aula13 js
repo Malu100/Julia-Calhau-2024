@@ -1,0 +1,30 @@
+function consultarendereco(){
+    let cep = document.getElementById('cep').value;
+    let url = "https://viacep.com.br/ws/" + cep + "/json/";
+
+    if(cep.length !== 8){
+        alert("cep invalido!!");
+        return;
+    }
+
+fetch (url). then(function (response){
+    response.json().then(mostrardados)
+})
+
+}
+
+function mostrardados(dados){
+    let resultado = document.querySelector('#resultado');
+    if(dados.erro){
+        resultado.innerHTML = `Não foi possivel localizar o endereço`
+    } else {
+        resultado.innerHTML = `
+        <p>enderço: ${dados.localidade}<p>
+        <p>logradouro: ${dados.logradouro}<p>
+        <p>complemento: ${dados.complemento}<p>
+        <p>estado: ${dados.estado}<p>
+        <p>região: ${dados.região}<p>
+        <p>DDD: ${dados.DDD}<p>
+        `
+    }
+}
