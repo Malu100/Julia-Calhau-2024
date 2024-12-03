@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assine o Jornal - Visionary Times</title>
+    <link rel="stylesheet" href="ass.css">
+</head>
+<body>
+    <header>
+        <img src="logo_jornal-removebg-preview.png" alt="Visionary Times Logo" class="logo">
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="noticias.html">Notícias</a></li>
+                <li><a href="vagas.html">Vagas de Emprego</a></li>
+                <li><a href="horoscopo.html">Horóscopo</a></li>
+                <li><a href="previsao-tempo.html">Previsão do Tempo</a></li>
+                <li><a href="esportes.html">Esportes</a></li>
+                <li><a href="assinar.html" >Assinar</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="assinar">
+            <div class="container">
+                <h1>Assine o Jornal e Fique por Dentro de Tudo!</h1>
+                <p class="subtitulo">Receba as melhores notícias diretamente no seu e-mail.</p>
+                
+                <!-- Formulário de Assinatura -->
+                <form action="submit-assinatura.php" method="POST" class="form-assinatura">
+                    <div class="campo">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" required placeholder="Digite seu telefone">
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Assinar Agora</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mundo digital. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

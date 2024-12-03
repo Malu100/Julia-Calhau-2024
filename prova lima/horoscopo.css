@@ -1,0 +1,135 @@
+/* Estilo geral */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #fff8f0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cabeçalho */
+header {
+    background: linear-gradient(135deg, #ff3838, #d87b09);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    width: 120px;
+}
+
+header .menu {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+header .menu li {
+    margin: 0 10px;
+}
+
+header .menu a {
+    text-decoration: none;
+    color: white;
+}
+
+header .menu a.active {
+    text-decoration: underline;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+
+nav ul li {
+    margin-left: 1rem;
+}
+
+nav ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: 500px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 15px;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    color:#000000;
+}
+
+/* Seção de Horóscopo */
+.horoscopo {
+    padding: 40px 20px;
+    text-align: center;
+    background: #fbe8e6;
+}
+
+.horoscopo h1 {
+    font-size: 3rem;
+    color: #c20000;
+    margin-bottom: 10px;
+}
+
+.horoscopo .subtitulo {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.signos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.signo {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signo:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.signo img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.signo h2 {
+    color: #c20000;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.signo p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+footer p {
+    font-size: 1rem;
+}
